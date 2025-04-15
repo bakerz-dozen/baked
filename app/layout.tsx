@@ -3,9 +3,9 @@ import {
   SignInButton,
   SignedIn,
   SignedOut,
-  UserButton,
 } from "@clerk/nextjs";
 import "./globals.css";
+import { MainLayout } from "../components/layouts";
 
 export default function RootLayout({
   children,
@@ -15,16 +15,18 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <header>
-            <SignedOut>
+        <body className="h-screen">
+          <SignedOut>
+            <header className="p-4">
               <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          <main>{children}</main>
+            </header>
+            <main>{children}</main>
+          </SignedOut>
+          <SignedIn>
+            <MainLayout>
+              {children}
+            </MainLayout>
+          </SignedIn>
         </body>
       </html>
     </ClerkProvider>
